@@ -21,6 +21,7 @@ function start_game(){
     lvl_title.parentNode.removeChild(lvl_title)
     add_level()
     start_lvl()
+    player_turn()
 }
 
 function add_level(){
@@ -36,8 +37,17 @@ function start_lvl (){
             btn[element].classList.toggle('pressed')
         }, 100)
         btn[element].classList.toggle('pressed')
-
+        play = true
     });
 }
-
-
+let player_order = []
+function player_turn(){
+    if (play){
+        btn.forEach((element, index) => {
+            btn[index].addEventListener('click', function() {
+                player_order.push(index)
+                console.log(player_order)
+            })
+        })
+    }
+}
