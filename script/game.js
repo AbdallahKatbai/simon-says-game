@@ -45,21 +45,19 @@ function start_lvl (){
 let player_order = []
 let counter = -1
 function player_turn(){
-    if (play){
         btn.forEach((element, index) => {
             btn[index].addEventListener('click', function() {
+                if(play == true){
                 player_order.push(index)
                 console.log(player_order)
                 counter += 1
-                const game_index = lvl_order[counter]
                 check(index, lvl_order[counter])
-            })
+            }})
         })
     }
-}
+
 
 function check(plr_index, game_index){
-    console.log( plr_index + ' and ' + game_index)
     if( plr_index != game_index){
         setTimeout(() => {
             container.classList.toggle('game-over')
