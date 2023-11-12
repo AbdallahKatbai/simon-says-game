@@ -19,8 +19,8 @@ function start_game(){
     console.log('game started')
     body.removeEventListener('keypress', start_game)
     lvl_title.parentNode.removeChild(lvl_title)
-    setTimeout(() => {add_level()}, 500) 
-    setTimeout(() => {start_lvl()}, 500)
+    add_level() 
+    start_lvl()
     //setTimeout(() => {player_turn()}, 500)
 }
 
@@ -49,23 +49,21 @@ let counter = 0
     btn.forEach((element, index) => {
         btn[index].addEventListener('click', function() {
             if(play == true){
-            setTimeout(() => { console.log('event listened')
+            console.log('event listened')
                 //if(play == true){
 
                 player_order.push(index)
                 console.log('counter1: ' + counter)
                 console.log('index: ' + index + ' and player_order: ' + player_order + ' and lvl_order: ' + lvl_order + ' lvl_order[counter]: ' + lvl_order[counter])
                 setTimeout(() => {check(index, lvl_order[counter])}, 500)
-            }, 3000)
-            }}
-        )})
+            }
+            })
+        })
 
 
 function check(plr_index, game_index){
     if( plr_index != game_index){
-        setTimeout(() => {
             container.classList.toggle('game-over')
-        }, 100)
         container.classList.toggle('game-over')
         play = false
         console.log('game over')
@@ -77,8 +75,8 @@ function check(plr_index, game_index){
         player_order = []
         counter = 0
         console.log('victory_counter: ' + counter)
-        setTimeout(() => {add_level()}, 500)
-        setTimeout(() => {start_lvl()}, 500)
+        add_level()
+        start_lvl()
         //setTimeout(() => {player_turn()}, 500)
     }
     else {
