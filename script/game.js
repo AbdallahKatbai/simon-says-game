@@ -78,6 +78,12 @@ let counter = 0
             })
         })
 
+function game_over(){
+    body.classList.toggle('game-over')
+    setTimeout(() => {
+        body.classList.toggle('game-over')
+    }, 500);
+}
 
 function check(plr_index, game_index){
     if( plr_index != game_index){
@@ -86,6 +92,7 @@ function check(plr_index, game_index){
         play = false
         wrong.play()
         console.log('game over')
+        game_over()
         setTimeout(() => {body.insertBefore(lvl_title, body.firstChild)}, 1000)
         body.addEventListener('keypress', start_game)
     }
