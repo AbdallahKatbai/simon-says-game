@@ -12,6 +12,11 @@ const colorcode = {
 }
 let lvl_order = []
 let play = false
+const blue = new Audio('sounds/blue.mp3')
+const red = new Audio('sounds/red.mp3')
+const green = new Audio('sounds/green.mp3')
+const yellow = new Audio('sounds/yellow.mp3')
+const wrong = new Audio('sounds/wrong.mp3')
 
 body.addEventListener('keypress', start_game)
 
@@ -40,6 +45,10 @@ function start_lvl (){
         setTimeout(() => {
             setTimeout(() => {
                 btn[lvl_order[i]].classList.toggle('pressed')
+                if(lvl_order[i] == 0) {green.play()}
+                if (lvl_order[i] == 1) {red.play()}
+                if (lvl_order[i] == 2) {yellow.play()}
+                if (lvl_order[i] == 3) {blue.play()}
                 console.log('lvl created' )
                 play = true
                 console.log('start_lvl comleted')
@@ -75,6 +84,7 @@ function check(plr_index, game_index){
             container.classList.toggle('game-over')
         container.classList.toggle('game-over')
         play = false
+        wrong.play()
         console.log('game over')
         setTimeout(() => {body.insertBefore(lvl_title, body.firstChild)}, 1000)
         body.addEventListener('keypress', start_game)
