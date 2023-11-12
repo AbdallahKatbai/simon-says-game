@@ -68,8 +68,8 @@ function check(plr_index, game_index){
         play = false
         console.log('game over')
     }
-    else if((plr_index == game_index) && (game_index == lvl_order[lvl_order.length - 1])){
-        console.log(plr_index +' and ' + game_index + ' and ' + (lvl_order.length - 1))
+    else if((plr_index == game_index) && (counter == lvl_order.length - 1)){
+        console.log(plr_index +' and ' + game_index + ' and ' + counter + ' and ' + (lvl_order.length - 1))
         console.log('victory')
         play = false
         player_order = []
