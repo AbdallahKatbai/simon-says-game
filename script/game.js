@@ -19,6 +19,7 @@ function start_game(){
     console.log('game started')
     body.removeEventListener('keypress', start_game)
     lvl_title.parentNode.removeChild(lvl_title)
+    lvl_order = []
     add_level() 
     start_lvl()
     //setTimeout(() => {player_turn()}, 500)
@@ -33,14 +34,22 @@ function add_level(){
 }
 
 function start_lvl (){
-    lvl_order.forEach((element, index) => {
+    console.log('lvl started')
+    
+    for (let i = 0; i < lvl_order.length; i++){
         setTimeout(() => {
-            btn[element].classList.toggle('pressed')
-        }, 1000)
-        setTimeout(() => {
-            btn[element].classList.toggle('pressed')
-        })
-    });play = true
+            setTimeout(() => {
+                btn[lvl_order[i]].classList.toggle('pressed')
+                console.log('lvl created' )
+                play = true
+                console.log('start_lvl comleted')
+            }, 500)
+            console.log('toggled')
+            btn[lvl_order[i]].classList.toggle('pressed')
+        }, i * 500) 
+    }
+   
+   
 }
 
 let player_order = []
@@ -55,7 +64,7 @@ let counter = 0
                 player_order.push(index)
                 console.log('counter1: ' + counter)
                 console.log('index: ' + index + ' and player_order: ' + player_order + ' and lvl_order: ' + lvl_order + ' lvl_order[counter]: ' + lvl_order[counter])
-                setTimeout(() => {check(index, lvl_order[counter])}, 500)
+                check(index, lvl_order[counter])
             }
             })
         })
@@ -67,6 +76,8 @@ function check(plr_index, game_index){
         container.classList.toggle('game-over')
         play = false
         console.log('game over')
+        setTimeout(() => {body.insertBefore(lvl_title, body.firstChild)}, 1000)
+        body.addEventListener('keypress', start_game)
     }
     else if((plr_index == game_index) && (counter == lvl_order.length - 1)){
         console.log(plr_index +' and ' + game_index + ' and ' + counter + ' and ' + (lvl_order.length - 1))
