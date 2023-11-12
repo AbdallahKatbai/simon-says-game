@@ -19,15 +19,16 @@ function start_game(){
     console.log('game started')
     body.removeEventListener('keypress', start_game)
     lvl_title.parentNode.removeChild(lvl_title)
-    add_level()
-    start_lvl()
-    player_turn()
+    setTimeout(() => {add_level()}, 500) 
+    setTimeout(() => {start_lvl()}, 500)
+    //setTimeout(() => {player_turn()}, 500)
 }
 
 function add_level(){
     const n = Math.floor(Math.random()*4)
     console.log(n)
     lvl_order.push(n)
+    console.log('lvl_order: ' + lvl_order)
     console.log(colorcode[n])
 }
 
@@ -35,26 +36,29 @@ function start_lvl (){
     lvl_order.forEach((element, index) => {
         setTimeout(() => {
             btn[element].classList.toggle('pressed')
-        }, 100)
-        btn[element].classList.toggle('pressed')
-        play = true
-    });
+        }, 1000)
+        setTimeout(() => {
+            btn[element].classList.toggle('pressed')
+        })
+    });play = true
 }
 
-
 let player_order = []
-let counter = -1
-function player_turn(){
-        btn.forEach((element, index) => {
-            btn[index].addEventListener('click', function() {
-                if(play == true){
+let counter = 0
+
+    btn.forEach((element, index) => {
+        btn[index].addEventListener('click', function() {
+            if(play == true){
+            setTimeout(() => { console.log('event listened')
+                //if(play == true){
+
                 player_order.push(index)
-                console.log(player_order)
-                counter += 1
-                check(index, lvl_order[counter])
-            }})
-        })
-    }
+                console.log('counter1: ' + counter)
+                console.log('index: ' + index + ' and player_order: ' + player_order + ' and lvl_order: ' + lvl_order + ' lvl_order[counter]: ' + lvl_order[counter])
+                setTimeout(() => {check(index, lvl_order[counter])}, 500)
+            }, 3000)
+            }}
+        )})
 
 
 function check(plr_index, game_index){
@@ -64,5 +68,21 @@ function check(plr_index, game_index){
         }, 100)
         container.classList.toggle('game-over')
         play = false
+        console.log('game over')
+    }
+    else if((plr_index == game_index) && (game_index == lvl_order[lvl_order.length - 1])){
+        console.log(plr_index +' and ' + game_index + ' and ' + (lvl_order.length - 1))
+        console.log('victory')
+        play = false
+        player_order = []
+        counter = 0
+        console.log('victory_counter: ' + counter)
+        setTimeout(() => {add_level()}, 500)
+        setTimeout(() => {start_lvl()}, 500)
+        //setTimeout(() => {player_turn()}, 500)
+    }
+    else {
+        counter += 1
+        console.log('counter2: ' + counter)
     }
 }
