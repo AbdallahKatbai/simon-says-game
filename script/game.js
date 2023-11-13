@@ -39,26 +39,30 @@ function add_level(){
 }
 
 function start_lvl (){
-    console.log('lvl started')
-    
+    play = false
+        console.log('lvl started')
     for (let i = 0; i < lvl_order.length; i++){
         setTimeout(() => {
             setTimeout(() => {
                 btn[lvl_order[i]].classList.toggle('pressed')
-                if(lvl_order[i] == 0) {green.play()}
-                if (lvl_order[i] == 1) {red.play()}
-                if (lvl_order[i] == 2) {yellow.play()}
-                if (lvl_order[i] == 3) {blue.play()}
+                if(i == (lvl_order.length - 1)){
                 console.log('lvl created' )
                 play = true
-                console.log('start_lvl comleted')
-            }, 500)
+                console.log(play)
+                console.log('start_lvl comleted')}
+            }, 100)
             console.log('toggled')
             btn[lvl_order[i]].classList.toggle('pressed')
-        }, i * 500) 
+            if(lvl_order[i] == 0) {green.play()
+            console.log('bt' + lvl_order[i])}
+            else if (lvl_order[i] == 1) {red.play()
+            console.log('bt' + lvl_order[i])}
+            else if (lvl_order[i] == 2) {yellow.play()
+            console.log('bt' + lvl_order[i])}
+            else if (lvl_order[i] == 3) {blue.play()
+            console.log('bt' + lvl_order[i])}
+        }, (i * 300) + 1000) 
     }
-   
-   
 }
 
 let player_order = []
@@ -67,13 +71,28 @@ let counter = 0
     btn.forEach((element, index) => {
         btn[index].addEventListener('click', function() {
             if(play == true){
-            console.log('event listened')
-                //if(play == true){
+            console.log( play + 'event listened')
+            setTimeout(() => {
+                btn[index].classList.toggle('pressed')
+                console.log(btn[index].classList)
+                if(index == 0) {green.play()
+                    console.log('pl' + index)}
+                else if (index == 1) {red.play()
+                    console.log('pl' + index)}
+                else if (index == 2) {yellow.play()
+                    console.log('pl' + index)}
+                else if (index == 3) {blue.play()
+                    console.log('pl' + index)}
+
+                console.log('toggled')
+                setTimeout(() => {btn[index].classList.toggle('pressed')}, 100) 
 
                 player_order.push(index)
                 console.log('counter1: ' + counter)
                 console.log('index: ' + index + ' and player_order: ' + player_order + ' and lvl_order: ' + lvl_order + ' lvl_order[counter]: ' + lvl_order[counter])
                 check(index, lvl_order[counter])
+                }, 100)
+                
             }
             })
         })
@@ -92,6 +111,8 @@ function check(plr_index, game_index){
         play = false
         wrong.play()
         console.log('game over')
+        counter = 0
+        player_order = []
         game_over()
         setTimeout(() => {body.insertBefore(lvl_title, body.firstChild)}, 1000)
         body.addEventListener('keypress', start_game)
